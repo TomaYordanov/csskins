@@ -9,7 +9,7 @@
     android:weightSum="100">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/patka"
+        android:id="@+id/patka2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="99"></androidx.recyclerview.widget.RecyclerView>
