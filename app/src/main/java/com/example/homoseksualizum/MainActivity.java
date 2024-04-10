@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,8 +32,12 @@ public class MainActivity extends AppCompatActivity {
     public static AppDatabase appDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button button = findViewById(R.id.HARESANITOMA);
+        Intent goToFavourites = new Intent(this, Favourites.class);
+        button.setOnClickListener(v -> {startActivity(goToFavourites);});
         appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database" ).allowMainThreadQueries().build();
         recyclerView = findViewById(R.id.patka);
         Gson gson = new GsonBuilder()

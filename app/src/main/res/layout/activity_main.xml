@@ -28,6 +28,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
       android:text="EN"
-        android:id="@+id/englishButton"></Button>
+        android:id="@+id/englishButton"
+        android:layout_marginRight="10dp"></Button>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:text="favourites"
+      android:id="@+id/HARESANITOMA"></Button>
   </LinearLayout>
 </LinearLayout>
