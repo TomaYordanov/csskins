@@ -27,22 +27,29 @@ public AdapterMain(SkinModel[] MAJKATIEMOMCHE, AppDatabase database){
 
     @Override
     public void onBindViewHolder(@NonNull SkinViewHolder holder, int position) {
-    SkinModel model = MAJKATIEMOMCHE[position];
-    holder.setTextView(model.getName());
-    holder.setImageView(model.getImage());
-    holder.button.setOnClickListener(v -> {insertSkin(model);});
-    }
-    public void insertSkin(SkinModel model)
-    {
     SkinDAO skinDAO = database.skinDAO();
+    SkinModel model = MAJKATIEMOMCHE[position];
         List<SkinEntity> skins = skinDAO.findSkinById(model.getId());
-        if (skins.size() > 0 )
-        {
-            Log.w("ADs", "SVURSHIH");
-            return;
-        }
+        boolean isFavourited = skins.size() > 0;
+        holder.button.setText(isFavourited ? "unfavourite" : "favourite");
+        holder.setTextView(model.getName());
+    holder.setImageView(model.getImage());
+    holder.button.setOnClickListener(v -> {
+        insertSkin(model, skinDAO, isFavourited );
+        notifyItemChanged(holder.getAdapterPosition());
+
+
+        });
+    }
+    public void insertSkin(SkinModel model, SkinDAO skinDAO, boolean isFavourited)
+    {
         SkinEntity skin = new SkinEntity(model.getName(), model.getImage(), model.getId());
-        skinDAO.insertSkin(skin);
+        if (!isFavourited){
+            skinDAO.insertSkin(skin);
+        }
+        else {
+            skinDAO.deleteSkin(skin.getId());
+        }
     }
     @Override
     public int getItemCount() {
