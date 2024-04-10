@@ -1,6 +1,7 @@
 package com.example.homoseksualizum;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 public class SkinViewHolder extends RecyclerView.ViewHolder {
-
+public Button button;
     public SkinViewHolder(@NonNull View itemView) {
         super(itemView);
         textView = itemView.findViewById(R.id.skinname);
         imageView = itemView.findViewById(R.id.tovaesnimkata);
+        button = itemView.findViewById(R.id.favouriteButton);
     }
     public TextView textView;
 

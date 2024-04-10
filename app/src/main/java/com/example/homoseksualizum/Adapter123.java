@@ -1,5 +1,6 @@
 package com.example.homoseksualizum;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,10 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class Adapter123 extends RecyclerView.Adapter<SkinViewHolder> {
 SkinModel[] MAJKATIEMOMCHE;
-public Adapter123(SkinModel[] MAJKATIEMOMCHE){
+AppDatabase database;
+public Adapter123(SkinModel[] MAJKATIEMOMCHE, AppDatabase database){
     this.MAJKATIEMOMCHE = MAJKATIEMOMCHE;
+    this.database = database;
 }
     @NonNull
     @Override
@@ -25,8 +30,20 @@ public Adapter123(SkinModel[] MAJKATIEMOMCHE){
     SkinModel model = MAJKATIEMOMCHE[position];
     holder.setTextView(model.getName());
     holder.setImageView(model.getImage());
+    holder.button.setOnClickListener(v -> {insertSkin(model);});
     }
-
+    public void insertSkin(SkinModel model)
+    {
+    SkinDAO skinDAO = database.skinDAO();
+        List<SkinEntity> skins = skinDAO.findSkinById(model.getId());
+        if (skins.size() > 0 )
+        {
+            Log.w("ADs", "SVURSHIH");
+            return;
+        }
+        SkinEntity skin = new SkinEntity(model.getName(), model.getImage(), model.getId());
+        skinDAO.insertSkin(skin);
+    }
     @Override
     public int getItemCount() {
         return MAJKATIEMOMCHE.length;

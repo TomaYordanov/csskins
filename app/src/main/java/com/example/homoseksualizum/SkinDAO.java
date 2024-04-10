@@ -12,8 +12,8 @@ public interface SkinDAO {
     void insertSkin(SkinEntity entity);
     @Query(value = "SELECT * FROM skin")
     List<SkinEntity> findAllSkins();
-    @Query(value = "SELECT * FROM skin WHERE name = :name")
-    List<SkinEntity> findSkinByName(String name);
+    @Query(value = "SELECT * FROM skin WHERE id = :id")
+    List<SkinEntity> findSkinById(String id);
 
 
 

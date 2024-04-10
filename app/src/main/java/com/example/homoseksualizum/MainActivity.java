@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,10 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     String language = "en";
+    public static AppDatabase appDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database" ).allowMainThreadQueries().build();
         recyclerView = findViewById(R.id.patka);
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void SetAdapter(SkinModel[] models)
     {
-        Adapter123 adapter123 = new Adapter123(models);
+        Adapter123 adapter123 = new Adapter123(models, appDatabase);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -1,18 +1,20 @@
 package com.example.homoseksualizum;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "skin")
 public class SkinEntity {
     @PrimaryKey
-    long id;
+    @NonNull
+    String id;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,9 +36,10 @@ public class SkinEntity {
 
     String name;
     String image;
-    public SkinEntity(String name, String image)
+    public SkinEntity(String name, String image, String id)
     {
         this.name = name;
         this.image = image;
+        this.id = id;
     }
 }
