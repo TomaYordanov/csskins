@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    String language = "en";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,18 +42,30 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RequestClient requestClient = retrofit.create(RequestClient.class);
-    loadSWCharacters(requestClient);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("golqmchep", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        language = sharedPreferences.getString("lang", "en");
+    loadSWCharacters(requestClient , editor);
+    Button englishButton = findViewById(R.id.englishButton);
+    Button bulgarianButton = findViewById(R.id.bulgarskiButon);
+    englishButton.setOnClickListener(v -> {
+        language="en";
+        loadSWCharacters(requestClient, editor);
+    });
+        bulgarianButton.setOnClickListener(v -> {
+            language="bg";
+            loadSWCharacters(requestClient, editor);
+        });
     }
-    private void loadSWCharacters(RequestClient SkinModel) {
-        Call<SkinModel[]> call = SkinModel.getSkins("en");
+    private void loadSWCharacters(RequestClient SkinModel, SharedPreferences.Editor editor) {
+        Call<SkinModel[]> call = SkinModel.getSkins(language);
         call.enqueue(new Callback<SkinModel[]>() {
             @Override
             public void onResponse(Call<SkinModel[]> call, Response<SkinModel[]> response) {
                 if (response.isSuccessful()) {
                     SkinModel[] SkinModel = response.body();
-                   // editor.putInt("currentPage", page);
-                  //  editor.apply();
+                    editor.putString("lang", language);
+                    editor.apply();
                     if (SkinModel != null) {
                         SetAdapter(SkinModel);
                         for (SkinModel model: SkinModel)
