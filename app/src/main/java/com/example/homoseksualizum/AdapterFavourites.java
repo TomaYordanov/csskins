@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class Adapter321 extends RecyclerView.Adapter<SkinViewHolder> {
+public class AdapterFavourites extends RecyclerView.Adapter<SkinViewHolder> {
 List<SkinEntity> skins;
     @NonNull
     @Override
@@ -25,13 +25,22 @@ List<SkinEntity> skins;
     SkinEntity skin = skins.get(position);
     holder.setImageView(skin.image);
     holder.setTextView(skin.name);
+    holder.button.setText("unfavourite");
+    holder.button.setOnClickListener(v ->
+    {
+        skins.remove(position);
+        SkinDAO skinDAO = MainActivity.appDatabase.skinDAO();
+        skinDAO.deleteSkin(skin.getId());
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, skins.size());
+    });
     }
 
     @Override
     public int getItemCount() {
         return skins.size();
     }
-    public Adapter321(List<SkinEntity> skins)
+    public AdapterFavourites(List<SkinEntity> skins)
     {
          this.skins = skins;
     }

@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void SetAdapter(SkinModel[] models)
     {
-        Adapter123 adapter123 = new Adapter123(models, appDatabase);
+        AdapterMain adapter123 = new AdapterMain(models, appDatabase);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

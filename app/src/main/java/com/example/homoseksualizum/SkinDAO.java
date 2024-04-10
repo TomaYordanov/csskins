@@ -14,7 +14,7 @@ public interface SkinDAO {
     List<SkinEntity> findAllSkins();
     @Query(value = "SELECT * FROM skin WHERE id = :id")
     List<SkinEntity> findSkinById(String id);
-
-
+@Query("DELETE FROM skin WHERE id = :id")
+    void deleteSkin(String id);
 
 }

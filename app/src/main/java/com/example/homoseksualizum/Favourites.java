@@ -23,7 +23,7 @@ public class Favourites extends AppCompatActivity {
         goBack.setOnClickListener(v -> {startActivity(back);});
         SkinDAO skinDAO = MainActivity.appDatabase.skinDAO();
         List<SkinEntity> skins = skinDAO.findAllSkins();
-        Adapter321 adapter = new Adapter321(skins);
+        AdapterFavourites adapter = new AdapterFavourites(skins);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class Adapter123 extends RecyclerView.Adapter<SkinViewHolder> {
+public class AdapterMain extends RecyclerView.Adapter<SkinViewHolder> {
 SkinModel[] MAJKATIEMOMCHE;
 AppDatabase database;
-public Adapter123(SkinModel[] MAJKATIEMOMCHE, AppDatabase database){
+public AdapterMain(SkinModel[] MAJKATIEMOMCHE, AppDatabase database){
     this.MAJKATIEMOMCHE = MAJKATIEMOMCHE;
     this.database = database;
 }
